@@ -2,7 +2,9 @@ const texto = document.querySelector("#comentario")
 const BtnPublicar = document.querySelector("#postear")
 const main = document.querySelector("#mensajes")
 
-BtnPublicar.addEventListener("click", postear)
+BtnPublicar.addEventListener("mousedown", postear)
+window.addEventListener('keydown', enter);
+window.addEventListener('keyup', vaciar);
 
 let mensaje
 const mensajesList = []
@@ -23,11 +25,19 @@ function postear(){
 
 }
 
-function eliminar(event){
-    const indice = event.target.id;
-    mensajesList.splice(indice, 1);
-    print();
+function enter(key){
+
+ if(key.key === "Enter"){
+    postear()
+ }
 }
+
+function vaciar(key){
+    if(key.key === "Enter"){
+        texto.value=""
+     }
+}
+
 
 
 function addMessage(mensaje){
@@ -38,14 +48,18 @@ function print(){
 
     main.innerHTML = "";
 
-    for (const [indice, mensaje] of mensajesList.entries()){
+    mensajesList.forEach(function(mensaje){
         const comentario = document.createElement("p")
         comentario.innerHTML = mensaje
     
         const btn = document.createElement("button")
         btn.classList.add("ghost")
-        btn.id = indice;
-        btn.addEventListener("click", eliminar);
+        btn.onclick = function(){
+            const indice = mensajesList.indexOf(mensaje)
+            console.log(indice)
+            mensajesList.splice(indice,1)
+            print()
+        }
     
         const icono = document.createElement("span")
         icono.classList.add("material-symbols-outlined")
@@ -59,7 +73,7 @@ function print(){
         comment.append(comentario,btn)
         main.append(comment)
 
-    }
+    })
  
 }
 
