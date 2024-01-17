@@ -9,6 +9,7 @@ window.addEventListener('keyup', vaciar);
 let mensaje
 let mensajesList = [];
 
+
 if (localStorage.getItem('MensajeList')) {
     mensajesList = JSON.parse(localStorage.getItem('MensajeList'));
     print();  // Ejecutar print si hay una lista en caché
@@ -86,7 +87,7 @@ function print(){
 
 
 function saveCache(){
-    localStorage.setItem('MensajeList',mensajesList)
+    localStorage.setItem('MensajeList', JSON.stringify(mensajesList));
 }
 
 
