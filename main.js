@@ -73,9 +73,15 @@ function print(){
         comment.append(comentario,btn)
         main.append(comment)
 
+        saveCache()
+
     })
  
 }
 
+
+function saveCache(){
+    localStorage.setItem('MensajeList',mensajesList)
+}
 
 
