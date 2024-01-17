@@ -7,7 +7,12 @@ window.addEventListener('keydown', enter);
 window.addEventListener('keyup', vaciar);
 
 let mensaje
-const mensajesList = []
+let mensajesList = [];
+
+if (localStorage.getItem('MensajeList')) {
+    mensajesList = JSON.parse(localStorage.getItem('MensajeList'));
+    print();  // Ejecutar print si hay una lista en caché
+}
 
 function postear(){
 
@@ -20,6 +25,7 @@ function postear(){
         addMessage(mensaje)
         console.log(mensajesList)
         print()
+        saveCache()
         texto.value=""
     }
 
@@ -59,6 +65,7 @@ function print(){
             console.log(indice)
             mensajesList.splice(indice,1)
             print()
+            saveCache()
         }
     
         const icono = document.createElement("span")
@@ -72,8 +79,6 @@ function print(){
         btn.append(icono)
         comment.append(comentario,btn)
         main.append(comment)
-
-        saveCache()
 
     })
  
